@@ -1,0 +1,38 @@
+name: IPCA
+
+on:
+  schedule:
+    - cron: "17 13 10,13 * *"   # dias 10 e 13, às 10h17 de Brasília
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Refazer mesmo sem mês novo"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency: ipca
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m ipca.build ${{ inputs.force && '--force' || '' }}
+      - name: Salvar no repositório
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A ipca
+          if git diff --cached --quiet; then echo "Nada novo."; exit 0; fi
+          mes=$(python -c "import json; print(json.load(open('ipca/output/data/meta.json', encoding='utf-8'))['reference_label'])")
+          git commit -m "IPCA: dados de $mes"
+          git push

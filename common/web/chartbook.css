@@ -1,0 +1,169 @@
+/* Chartbooks: página branca, texto preto, fios verdes finos e gráficos em painel creme,
+   como nos documentos em LaTeX do autor. As cores (--verde, --marrom, --painel...) vêm do palette.py. */
+:root {
+  --serif: "TeX Gyre Pagella", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --tinta: #000;
+  --cinza-texto: #3c3c3c;
+  --caixa: #f5f5f5;
+  --fio: .8px;
+  --largura: 64rem;
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 3.4rem; }
+body {
+  margin: 0; background: #fff; color: var(--tinta);
+  font: 17px/1.5 var(--serif); font-variant-numeric: lining-nums;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration-thickness: .06em; text-underline-offset: .18em; }
+a:hover { text-decoration-color: var(--marrom); }
+abbr[title] { text-decoration: none; cursor: help; }
+:focus-visible { outline: 1px dotted #000; outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.pagina { max-width: var(--largura); margin: 0 auto; padding: 0 1.75rem 3rem; }
+
+/* ── cabeçalho do documento ── */
+.doc-cab { padding: 2.6rem 0 1rem; }
+.doc-cab h1 { font-size: 2.35rem; line-height: 1.12; font-weight: 700; margin: 0 0 .55rem; letter-spacing: -.005em; }
+.doc-sub { font-style: italic; font-size: 1.22rem; margin: 0 0 .55rem; }
+.doc-autor { font-size: .92rem; margin: 0 0 .2rem; }
+.doc-links { font-size: .86rem; margin: 0; }
+.doc-links a { margin-right: 1.1rem; }
+
+/* ── índice fixo no topo ── */
+.indice { position: sticky; top: 0; z-index: 20; background: #fff; border-top: var(--fio) solid var(--verde); border-bottom: var(--fio) solid var(--verde); }
+.indice ol { list-style: none; margin: 0; padding: 0; display: flex; gap: 0 1.35rem; overflow-x: auto; white-space: nowrap; scrollbar-width: none; font-size: .86rem; }
+.indice ol::-webkit-scrollbar { display: none; }
+.indice li { flex: none; }
+.indice a { display: inline-flex; align-items: center; min-height: 2.35rem; text-decoration: none; }
+.indice a:hover, .indice a[aria-current="true"] { text-decoration: underline; text-decoration-color: var(--marrom); }
+
+/* ── seções ── */
+.secao { margin-top: 2.6rem; scroll-margin-top: 3rem; }
+.secao > h2 { font-size: 1.3rem; font-weight: 700; margin: 0 0 .35rem; }
+.secao > .intro { font-size: .95rem; margin: 0 0 1rem; max-width: 46rem; }
+
+/* ── quadro cinza (destaques, notas) ── */
+.caixa { background: var(--caixa); padding: .85rem 1.1rem 1rem; }
+.caixa h2 { font-size: 1.05rem; font-weight: 700; margin: 0 0 .7rem; }
+.destaques { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .9rem 1.4rem; margin: 0; }
+.destaque-item { margin: 0; }
+.destaque-item dt { font-size: .9rem; line-height: 1.25; font-weight: 700; margin-bottom: .3rem; }
+.destaque-item dd { margin: 0; font-size: .8rem; line-height: 1.35; }
+.destaque-valor { display: block; font-size: 1.9rem; line-height: 1.1; font-variant-numeric: lining-nums tabular-nums; }
+.destaque-det { display: block; margin-bottom: .4rem; }
+.destaque-mais { display: block; }
+.caixa-nota { font-size: .78rem; margin: .45rem 0 0; }
+.notas { font-size: .88rem; }
+.notas dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: .3rem 1rem; }
+.notas dt { font-weight: 700; }
+.notas dd { margin: 0; }
+.notas p { margin: .6rem 0 0; }
+
+/* ── gráficos e tabelas: "Gráfico N: título", subtítulo, painel, fonte ── */
+.figura { margin: 0 0 2.2rem; min-width: 0; }
+.fig-cab { border-top: var(--fio) solid var(--verde); padding-top: .3rem; margin-bottom: .55rem; }
+.fig-titulo { font-size: 1rem; line-height: 1.35; font-weight: 700; margin: 0; }
+.fig-sub { font-size: .84rem; line-height: 1.4; margin: .12rem 0 0; }
+.fig-rodape { display: flex; justify-content: space-between; align-items: flex-start; gap: .4rem 1.2rem; margin-top: .4rem; }
+.fig-fonte { font-size: .74rem; line-height: 1.45; margin: .3rem 0 0; }
+.baixar { flex: none; background: none; border: 0; padding: 0 .1rem; min-height: 30px; color: #000; font: .78rem/1.4 var(--serif);
+  text-decoration: underline; text-decoration-color: var(--musgo); text-underline-offset: .2em; cursor: pointer; }
+.baixar:hover { text-decoration-color: var(--marrom); }
+.duas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 2rem; align-items: start; }
+
+/* painel creme (estilo dos gráficos do site) */
+.painel { background: var(--painel); color: #000; border-radius: 3px; padding: .7rem 1rem .45rem; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 0 1.3rem; margin: 0 0 .25rem; }
+.chart-legend button, .chart-period button {
+  background: transparent; color: #000; border: 0; padding: .2rem 0; min-height: 32px;
+  font: 400 .86rem/1.35 var(--serif); cursor: pointer; text-align: left;
+}
+.legend-item { display: inline-flex; align-items: center; gap: .45rem; }
+.legend-item svg { flex: none; }
+.legend-item[aria-pressed="false"] { opacity: .4; text-decoration: line-through; }
+.controles:empty { display: none; }
+.controles { display: flex; flex-wrap: wrap; align-items: center; gap: .1rem 1.8rem; margin: 0 0 .3rem; }
+.chart-period { display: flex; flex-wrap: wrap; gap: 0 1.3rem; }
+.chart-period button { color: #555; }
+.chart-period button[aria-pressed="true"] { color: #000; text-decoration: underline; text-decoration-color: var(--marrom); text-underline-offset: .3em; }
+.controle-lista { display: flex; align-items: center; gap: .55rem; font-size: .9rem; }
+.controle-lista select {
+  font: inherit; font-size: .95rem; color: #000; background: #fff; border: var(--fio) solid var(--verde-55);
+  border-radius: 2px; padding: .3rem 1.8rem .3rem .5rem; min-height: 36px; max-width: 100%;
+  appearance: none; -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #000 50%), linear-gradient(135deg, #000 50%, transparent 50%);
+  background-position: calc(100% - 13px) 55%, calc(100% - 8px) 55%; background-size: 5px 5px; background-repeat: no-repeat;
+}
+.nota-escopo { flex-basis: 100%; font-size: .84rem; margin: .1rem 0 0; }
+.controles-secao { margin-bottom: 1.2rem; }
+.chart-canvas { position: relative; width: 100%; }
+.chart-canvas svg { display: block; max-width: 100%; overflow: visible; touch-action: pan-y; }
+.chart-canvas svg:focus-visible { outline: 1px dotted #000; outline-offset: 3px; }
+.axis-label { font: 12px var(--serif); fill: #000; font-variant-numeric: lining-nums; }
+.bar-label { font: 12px var(--serif); fill: #000; font-variant-numeric: lining-nums tabular-nums; }
+.bar-label.forte, .axis-label.forte { font-weight: 700; }
+.chart-tooltip {
+  position: absolute; z-index: 3; pointer-events: none; background: #fff; color: #000;
+  padding: .5rem .7rem; border-radius: 3px; box-shadow: 0 2px 12px rgba(0, 0, 0, .14);
+  font: 12.5px/1.5 var(--serif); font-variant-numeric: lining-nums tabular-nums; max-width: calc(100% - 6px); white-space: nowrap;
+}
+.chart-tooltip strong { display: block; margin-bottom: .15rem; font-size: 13px; }
+.dica-linha { display: flex; align-items: center; gap: .4rem; }
+.dica-linha i { flex: none; display: inline-block; width: 10px; height: 10px; }
+.dica-linha i.linha { height: 2px; width: 14px; }
+.dica-linha b { font-weight: 400; margin-left: auto; padding-left: .8rem; }
+.grafico-vazio { font-size: .9rem; margin: .4rem 0 .6rem; }
+
+/* tabelas (booktabs, fios verdes) */
+.tabela-rolagem { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table.tab { border-collapse: collapse; width: 100%; font-size: .84rem; line-height: 1.3; font-variant-numeric: lining-nums tabular-nums; }
+.tab-legenda { font-size: .86rem; font-style: italic; margin: 0 0 .35rem; }
+table.tab thead th { border-top: 1px solid var(--verde); border-bottom: var(--fio) solid var(--verde); font-weight: 700; text-align: right; padding: .38rem .5rem; white-space: nowrap; }
+table.tab thead th.col-nome { text-align: left; padding-left: 0; }
+table.tab td { text-align: right; padding: .26rem .5rem; border-bottom: 1px solid #e7e7e7; white-space: nowrap; }
+table.tab tbody th { text-align: left; font-weight: 400; padding: .26rem .9rem .26rem 0; border-bottom: 1px solid #e7e7e7; white-space: nowrap; }
+table.tab tbody tr:last-child td, table.tab tbody tr:last-child th { border-bottom: 1px solid var(--verde); }
+table.tab tr.destaque th, table.tab tr.destaque td { font-weight: 700; }
+table.tab tr.bloco th, table.tab tr.bloco td { border-top: 5px solid #fff; }
+table.tab tbody tr:hover th, table.tab tbody tr:hover td:not([style]) { background: #fafafa; }
+table.calor { width: auto; min-width: 100%; }
+table.calor td { min-width: 3.6rem; }
+table.tab tbody th, table.tab thead th.col-nome { position: sticky; left: 0; background: #fff; z-index: 1; }
+.resumo-tab { max-width: 46rem; }
+.tab-nota { font-size: .76rem; margin: .45rem 0 0; max-width: 46rem; }
+.paineis > [hidden] { display: none; }
+
+@media (max-width: 900px) {
+  .duas { grid-template-columns: minmax(0, 1fr); }
+  .destaques { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .indice ol { padding-right: 2.5rem; -webkit-mask-image: linear-gradient(to right, #000 82%, transparent); mask-image: linear-gradient(to right, #000 82%, transparent); }
+  .pagina { padding: 0 16px 2.5rem; }
+  .doc-cab { padding-top: 1.6rem; }
+  .doc-cab h1 { font-size: 1.8rem; }
+  .doc-sub { font-size: 1.08rem; }
+  .destaques { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1rem; }
+  .destaque-valor { font-size: 1.6rem; }
+  .painel { padding: .55rem .6rem .35rem; }
+  .chart-legend { gap: 0 1rem; }
+  .chart-legend button, .chart-period button { font-size: .82rem; }
+  .axis-label, .bar-label { font-size: 11px; }
+  .controles { gap: .1rem 1rem; }
+  .controle-lista { flex-basis: 100%; }
+  .controle-lista select { flex: 1; min-width: 0; }
+  .fig-rodape { flex-direction: column; gap: 0; }
+  .notas dl { grid-template-columns: 1fr; gap: 0; }
+  .notas dd { margin-bottom: .45rem; }
+  table.tab { font-size: .8rem; }
+}
+@media print {
+  .indice, .controles, .baixar, .chart-tooltip { display: none !important; }
+  .painel { break-inside: avoid; }
+  .paineis > [hidden] { display: block !important; }
+  .secao { break-inside: auto; }
+}
